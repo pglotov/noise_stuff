@@ -44,6 +44,37 @@
         return TopNoises;
 
       })();
+      describe('TopNoises', function() {
+        var beforeEach;
+        beforeEach = function() {
+          var topNoises;
+          return topNoises = new TopNoises(3);
+        };
+        return it('should keep 3 highest entries, sorted', function() {
+          var entries;
+          entries = [
+            {
+              cumulativeVolume: 10,
+              timestamp: 'nov 10',
+              cumulativeVolume: 7,
+              timestamp: 'nov 10',
+              cumulativeVolume: 40,
+              timestamp: 'nov 10',
+              cumulativeVolume: 21,
+              timestamp: 'nov 10'
+            }
+          ];
+          topNoises.push(enties[0]);
+          expect(topNoises.changed).toBe(true);
+          topNoises.push(enties[2]);
+          topNoises.push(enties[1]);
+          topNoises.push(enties[3]);
+          expect(topNoises.storage.length).toBe(3);
+          expect(topNoises.storage[0]).toEqual(entries[2]);
+          expect(topNoises.storage[1]).toEqual(entries[3]);
+          return expect(topNoises.storage[2]).toEqual(entries[0]);
+        });
+      });
       $scope.noiseData = {
         instant: 0,
         progress: 0,

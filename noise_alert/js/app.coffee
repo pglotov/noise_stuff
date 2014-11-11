@@ -26,6 +26,32 @@ app.controller 'noiseController', ['$scope', '$interval', 'Message', ($scope, $i
         clear: ()->
             @changed = false
 
+    describe 'TopNoises', ()->
+        beforeEach = ()->
+            topNoises = new TopNoises(3)
+
+        it 'should keep 3 highest entries, sorted', ()->
+            entries = [
+                cumulativeVolume: 10
+                timestamp: 'nov 10',
+                cumulativeVolume: 7
+                timestamp: 'nov 10',
+                cumulativeVolume: 40
+                timestamp: 'nov 10',
+                cumulativeVolume: 21
+                timestamp: 'nov 10',
+                ]
+                
+            topNoises.push enties[0]
+            expect(topNoises.changed).toBe(true)
+            topNoises.push enties[2]
+            topNoises.push enties[1]
+            topNoises.push enties[3]
+
+            expect(topNoises.storage.length).toBe(3)
+            expect(topNoises.storage[0]).toEqual(entries[2])
+            expect(topNoises.storage[1]).toEqual(entries[3])
+            expect(topNoises.storage[2]).toEqual(entries[0])
 
     $scope.noiseData =
         instant: 0
