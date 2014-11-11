@@ -11,7 +11,6 @@ app.controller 'noiseController', ['$scope', '$window', ($scope, $window)->
     $scope.threshold = 0.2
     $window.noiseAlert =
         threshold: $scope.threshold
-        scope: $scope
     $scope.$watch 'threshold', (newValue)->
         $window.noiseAlert.threshold = newValue
 

@@ -16,8 +16,7 @@
       $scope.phoneNumber = '408';
       $scope.threshold = 0.2;
       $window.noiseAlert = {
-        threshold: $scope.threshold,
-        scope: $scope
+        threshold: $scope.threshold
       };
       $scope.$watch('threshold', function(newValue) {
         return $window.noiseAlert.threshold = newValue;
