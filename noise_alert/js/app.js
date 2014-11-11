@@ -14,10 +14,13 @@
   app.controller('noiseController', [
     '$scope', '$window', function($scope, $window) {
       $scope.phoneNumber = '408';
+      $scope.threshold = 0.2;
       $window.noiseAlert = {
-        threshold: 0.2
+        threshold: $scope.threshold
       };
-      return $scope.window = $window;
+      return $scope.$watch('threshold', function(newValue) {
+        return $window.noiseAlert.threshold = newValue;
+      });
     }
   ]);
 

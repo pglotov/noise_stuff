@@ -19,7 +19,6 @@ function SoundMeter(context) {
   this.slow = 0.0;
   this.clip = 0.0;
 
-  this.threshold = 0.2;
   this.noisePrgress = 0;
 
   this.script = context.createScriptProcessor(2048, 1, 1);
@@ -41,7 +40,7 @@ function SoundMeter(context) {
     that.slow = 0.95 * that.slow + 0.05 * that.instant;
     that.clip = clipcount / input.length;
 
-    if (that.instant > that.threshold)
+    if (that.instant > window.noiseAlert.threshold)
       ++that.noiseProgress;
     else
       that.noiseProgress = 0;

@@ -8,7 +8,9 @@ app.config ['$interpolateProvider',
 
 app.controller 'noiseController', ['$scope', '$window', ($scope, $window)->
     $scope.phoneNumber = '408'
+    $scope.threshold = 0.2
     $window.noiseAlert =
-        threshold: 0.2
-    $scope.window = $window
+        threshold: $scope.threshold
+    $scope.$watch 'threshold', (newValue)->
+        $window.noiseAlert.threshold = newValue
 ]
