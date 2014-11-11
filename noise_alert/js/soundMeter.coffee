@@ -59,7 +59,7 @@ app = angular.module 'noiseAlert.app'
 
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
-        navigator.getUserMedia constraints, ((stream)->
+        navigator.getUserMedia $scope.constraints, ((stream)->
             $scope.connectToSource(stream)),
             ((error)->console.log('navigator.getUserMedia error: ', error))
     ]

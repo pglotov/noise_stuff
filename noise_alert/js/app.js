@@ -95,7 +95,7 @@
               video: false
             };
             navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-            return navigator.getUserMedia(constraints, (function(stream) {
+            return navigator.getUserMedia($scope.constraints, (function(stream) {
               return $scope.connectToSource(stream);
             }), (function(error) {
               return console.log('navigator.getUserMedia error: ', error);
