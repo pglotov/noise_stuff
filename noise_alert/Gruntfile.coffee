@@ -3,7 +3,7 @@ module.exports = (grunt) ->
         #pkg: grunt.file.readJSON('package.json')
         coffee:
             files:
-                src: ['js/app.coffee', 'js/soundMeter.coffee']
+                src: ['js/app.coffee', 'js/soundMeter.coffee', 'js/message.coffee']
                 dest: 'js/app.js'
 
     grunt.loadNpmTasks('grunt-contrib-coffee')

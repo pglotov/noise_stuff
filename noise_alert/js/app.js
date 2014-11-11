@@ -130,3 +130,18 @@
   ]);
 
 }).call(this);
+
+(function() {
+  var app;
+
+  app = angular.module('noiseAlert.app', ['ngResource']).factory('Message', [
+    '$resource', function($resource) {
+      return $resource('https://api.sendhub.com/v1/messages/', null, {
+        send: {
+          method: 'POST'
+        }
+      });
+    }
+  ]);
+
+}).call(this);
