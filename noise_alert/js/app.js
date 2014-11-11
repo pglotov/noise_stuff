@@ -112,7 +112,7 @@
                 noiseData.progress += input.length / 2048;
                 return noiseData.cumulativeVolume += noiseData.instant * input.length / 2048;
               } else {
-                if (noiseData.progress >= 12) {
+                if (noiseData.progress >= 20) {
                   newEntry = {
                     cumulativeVolume: noiseData.cumulativeVolume,
                     timestamp: new Date()
