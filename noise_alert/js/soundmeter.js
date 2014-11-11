@@ -13,13 +13,23 @@
 // instantaneous and time-decaying volumes available for inspection.
 // It also reports on the fraction of samples that were at or near
 // the top of the measurement range.
+
+
+function NoiseDesciptor(cumulativeVolume, timestamp){
+  this.cumulativeVolume = cumulativeVolume;
+  this.datetime = datetime;
+}
+
 function SoundMeter(context) {
   this.context = context;
   this.instant = 0.0;
   this.slow = 0.0;
   this.clip = 0.0;
 
-  this.noisePrgress = 0;
+  this.noiseProgress = 0;
+  this.cumulativeVolume = 0;
+
+  this.topNoises = [];
 
   this.script = context.createScriptProcessor(2048, 1, 1);
   var that = this;
@@ -28,22 +38,25 @@ function SoundMeter(context) {
     var input = event.inputBuffer.getChannelData(0);
     var i;
     var sum = 0.0;
-    var clipcount = 0;
     for (i = 0; i < input.length; ++i) {
       sum += input[i] * input[i];
-      if (Math.abs(input[i]) > 0.99) {
-        clipcount += 1;
-      }
     }
 
     that.instant = Math.sqrt(sum / input.length);
-    that.slow = 0.95 * that.slow + 0.05 * that.instant;
-    that.clip = clipcount / input.length;
 
-    if (that.instant > window.noiseAlert.threshold)
-      ++that.noiseProgress;
-    else
-      that.noiseProgress = 0;
+    if (that.instant > window.noiseAlert.threshold) {
+      this.noiseProgress += input.length / 2048;
+      this.cumulativeVolume += that.instant * input.length / 2048;
+    } else {
+      if (this.noiseProgress >= 10000) {
+        this.topNoises.push_back(new NoiseDescriptor(this.cumulativeVolume, new Date()));
+        this.topNoises.reverse(function(a,b) {return b.cumulativeVolume - a.cumulativeVolume});
+        if (this.topNoises.length > 3)
+          this.topNoises.pop();
+      }
+      this.noiseProgress = 0;
+      this.cumulativeVolume = 0;
+    }
   };
 }
 

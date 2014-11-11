@@ -16,11 +16,15 @@
       $scope.phoneNumber = '408';
       $scope.threshold = 0.2;
       $window.noiseAlert = {
-        threshold: $scope.threshold
+        threshold: $scope.threshold,
+        scope: $scope
       };
-      return $scope.$watch('threshold', function(newValue) {
+      $scope.$watch('threshold', function(newValue) {
         return $window.noiseAlert.threshold = newValue;
       });
+      return $scope.$watch((function() {
+        return $window.noiseAlert;
+      }), (function(newValue) {}), true);
     }
   ]);
 

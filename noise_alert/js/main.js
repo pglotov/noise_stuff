@@ -44,15 +44,10 @@ function successCallback(stream) {
   soundMeter.connectToSource(stream);
 
   setInterval(function() {
-    instantMeter.value = instantValueDisplay.innerText =
-      soundMeter.instant.toFixed(2);
-    slowMeter.value = slowValueDisplay.innerText =
-      soundMeter.slow.toFixed(2);
-    clipMeter.value = clipValueDisplay.innerText =
-      soundMeter.clip;
-    noiseProgressMeter.value = noiseProgressValueDisplay.innerText =
-      soundMeter.noiseProgress;
-
+    $window.noiseAlert.scope.$apply(function() {
+      $window.noiseAlert.instantVolume = soundMeter.instant.toFixed(2);
+      $window.noiseAlert.noiseProgress = soundMeter.noiseProgress.toFixed(5);
+      $window.noiseAlert.topNoises = soundMeter.topNoises});
   }, 200);
 }
 
