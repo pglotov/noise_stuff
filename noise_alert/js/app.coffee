@@ -6,7 +6,7 @@ app.config ['$interpolateProvider',
         $interpolateProvider.endSymbol('}]}')]
 
 app.controller 'noiseController', ['$scope', '$interval', 'Message', ($scope, $interval, Message)->
-    $scope.phoneNumber = '408'
+    $scope.phoneNumber = '+14086275378'
 
     $scope.noiseData =
         instant: 0

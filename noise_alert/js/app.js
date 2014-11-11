@@ -13,7 +13,7 @@
   app.controller('noiseController', [
     '$scope', '$interval', 'Message', function($scope, $interval, Message) {
       var timeoutId;
-      $scope.phoneNumber = '408';
+      $scope.phoneNumber = '+14086275378';
       $scope.noiseData = {
         instant: 0,
         noiseProgress: 0,
