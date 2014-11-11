@@ -12,16 +12,14 @@
 
   app.controller('noiseController', [
     '$scope', '$interval', function($scope, $interval) {
-      var timeoutId;
       $scope.phoneNumber = '408';
-      $scope.noiseData = {
+      return $scope.noiseData = {
         instant: 0,
         noiseProgress: 0,
         cumulativeVolume: 0,
         topNoises: [],
         threshold: 0.2
       };
-      return timeoutId = $interval($scope.apply, 2000);
     }
   ]);
 
@@ -67,7 +65,7 @@
                 noiseData.noiseProgress += input.length / 2048;
                 return noiseData.cumulativeVolume += noiseData.instant * input.length / 2048;
               } else {
-                if (noiseData.noiseProgress >= 10000) {
+                if (noiseData.noiseProgress >= 50) {
                   noiseData.topNoises.push_back({
                     cumulativeVolume: noiseData.cumulativeVolume,
                     timestamp: new Date()

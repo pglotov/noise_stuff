@@ -32,7 +32,7 @@ app = angular.module 'noiseAlert.app'
                 noiseData.noiseProgress += input.length / 2048;
                 noiseData.cumulativeVolume += noiseData.instant * input.length / 2048;
             else
-                if noiseData.noiseProgress >= 10000
+                if noiseData.noiseProgress >= 50
                     noiseData.topNoises.push_back
                         cumulativeVolume: noiseData.cumulativeVolume
                         timestamp: new Date()
