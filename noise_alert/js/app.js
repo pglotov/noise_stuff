@@ -73,7 +73,7 @@
                     timestamp: new Date()
                   });
                   noiseData.topNoises.sort(function(a, b) {
-                    return a.cumulativeVolume - b.cumulativeVolume;
+                    return b.cumulativeVolume - a.cumulativeVolume;
                   });
                   if (noiseData.topNoises.length > 3) {
                     noiseData.topNoises.pop();
