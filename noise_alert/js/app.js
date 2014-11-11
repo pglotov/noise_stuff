@@ -17,7 +17,7 @@
       $scope.threshold = {
         threshold: 0.2
       };
-      return navigator.getUserMedia(constraints, successCallback, function(stream) {
+      return navigator.getUserMedia(constraints, function(stream) {
         window.stream = stream;
         $scope.soundMeter = window.soundMeter = new SoundMeter(window.audioContext, $scope.threshold);
         $scope.soundMeter.connectToSource(stream);

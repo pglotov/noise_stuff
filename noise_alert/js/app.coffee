@@ -10,7 +10,7 @@ app.controller 'noiseController', ['$scope', ($scope)->
     $scope.phoneNumber = '408'    
     $scope.threshold = threshold: 0.2
 
-    navigator.getUserMedia constraints, successCallback,
+    navigator.getUserMedia constraints,
         (stream)->
             # Put variables in global scope to make them available to the browser console.
             window.stream = stream
