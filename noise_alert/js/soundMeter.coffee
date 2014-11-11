@@ -5,7 +5,7 @@ app = angular.module 'noiseAlert.app'
     scope:
         threshold: '='
         noiseData: '='
-        controller: ['$scope', ($scope)->
+        controller: ['$scope', '$window', ($scope, $window)->
             noiseData = $scope.noiseData
             noiseData.instant = 0.0;
             noiseData.noiseProgress = 0;

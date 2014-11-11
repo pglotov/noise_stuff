@@ -11,7 +11,7 @@
   ]);
 
   app.controller('noiseController', [
-    '$scope', '$window', function($scope, $window) {
+    '$scope', function($scope) {
       $scope.phoneNumber = '408';
       $scope.threshold = 0.2;
       return $scope.noiseData = {
@@ -36,7 +36,7 @@
           threshold: '=',
           noiseData: '=',
           controller: [
-            '$scope', function($scope) {
+            '$scope', '$window', function($scope, $window) {
               var e, noiseData;
               noiseData = $scope.noiseData;
               noiseData.instant = 0.0;
