@@ -49,7 +49,7 @@
 (function() {
   var app;
 
-  app = angular.modul('noiseAlert.app', []).factory('NoiseDescriptor', [
+  app = angular.module('noiseAlert.app', []).factory('NoiseDescriptor', [
     function(cumulativeVolume, timestamp) {
       this.cumulativeVolume = cumulativeVolume;
       return this.timestamp = timestamp;
