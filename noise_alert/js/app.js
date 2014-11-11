@@ -14,22 +14,9 @@
   app.controller('noiseController', [
     '$scope', function($scope) {
       $scope.phoneNumber = '408';
-      $scope.threshold = {
+      return $window.noiseAlert = {
         threshold: 0.2
       };
-      return navigator.getUserMedia(constraints, function(stream) {
-        window.stream = stream;
-        $scope.soundMeter = window.soundMeter = new SoundMeter(window.audioContext, $scope.threshold);
-        $scope.soundMeter.connectToSource(stream);
-        return setInterval(function() {
-          instantMeter.value = instantValueDisplay.innerText = soundMeter.instant.toFixed(2);
-          slowMeter.value = slowValueDisplay.innerText = soundMeter.slow.toFixed(2);
-          clipMeter.value = clipValueDisplay.innerText = soundMeter.clip;
-          return noiseCountMeter.value = noiseCountDisplay.innerText = soundMeter.noiseCount;
-        }, 200);
-      }, function(error) {
-        return console.log('navigator.getUserMedia error: ', error);
-      });
     }
   ]);
 
