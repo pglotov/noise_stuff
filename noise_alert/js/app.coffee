@@ -29,12 +29,14 @@ app.controller 'noiseController', ['$scope', '$interval', 'Message', ($scope, $i
 
     $scope.noiseData =
         instant: 0
-        noiseProgress: 0
+        progress: 0
         cumulativeVolume: 0
         threshold: 0.2
         topNoises: new TopNoises(3)    
 
     timeoutId = $interval (()->
+        noiseProgress = noiseData.progress
+        instant = noiseData.instant
         if $scope.noiseData.topNoises.changed
             message = new Message
                 text: "Top noises have changed"

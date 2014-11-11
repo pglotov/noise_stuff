@@ -24,16 +24,16 @@ app = angular.module 'noiseAlert.app'
             noiseData.instant = Math.sqrt(sum / input.length)
 
             if noiseData.instant >= noiseData.threshold
-                noiseData.noiseProgress += input.length / 2048
+                noiseData.progress += input.length / 2048
                 noiseData.cumulativeVolume += noiseData.instant * input.length / 2048
             else
-                if noiseData.noiseProgress >= 12
+                if noiseData.progress >= 12
                     newEntry =
                         cumulativeVolume: noiseData.cumulativeVolume
                         timestamp: new Date()
 
                     noiseData.topNoises.push newEntry
-                    noiseData.noiseProgress = 0
+                    noiseData.progress = 0
                     noiseData.cumulativeVolume = 0
 
         $scope.connectToSource = (stream)->

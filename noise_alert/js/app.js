@@ -46,13 +46,15 @@
       })();
       $scope.noiseData = {
         instant: 0,
-        noiseProgress: 0,
+        progress: 0,
         cumulativeVolume: 0,
         threshold: 0.2,
         topNoises: new TopNoises(3)
       };
       return timeoutId = $interval((function() {
-        var message;
+        var instant, message, noiseProgress;
+        noiseProgress = noiseData.progress;
+        instant = noiseData.instant;
         if ($scope.noiseData.topNoises.changed) {
           message = new Message({
             text: "Top noises have changed",
@@ -107,16 +109,16 @@
               }
               noiseData.instant = Math.sqrt(sum / input.length);
               if (noiseData.instant >= noiseData.threshold) {
-                noiseData.noiseProgress += input.length / 2048;
+                noiseData.progress += input.length / 2048;
                 return noiseData.cumulativeVolume += noiseData.instant * input.length / 2048;
               } else {
-                if (noiseData.noiseProgress >= 12) {
+                if (noiseData.progress >= 12) {
                   newEntry = {
                     cumulativeVolume: noiseData.cumulativeVolume,
                     timestamp: new Date()
                   };
                   noiseData.topNoises.push(newEntry);
-                  noiseData.noiseProgress = 0;
+                  noiseData.progress = 0;
                   return noiseData.cumulativeVolume = 0;
                 }
               }
