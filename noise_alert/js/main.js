@@ -51,7 +51,7 @@ function successCallback(stream) {
     clipMeter.value = clipValueDisplay.innerText =
       soundMeter.clip;
     noiseProgressMeter.value = noiseProgressValueDisplay.innerText =
-      sountMeter.noiseProgress;
+      soundMeter.noiseProgress;
 
   }, 200);
 }
