@@ -28,8 +28,8 @@ app.controller 'noiseController', ['$scope', '$interval', 'Message', ($scope, $i
 
     describe 'TopNoises', ()->
         topNoises = {}
-        beforeEach = ()->
-            topNoises = new TopNoises(3)
+        beforeEach (()->
+            topNoises = new TopNoises(3))
 
         it 'should keep 3 highest entries, sorted', ()->
             entries = [

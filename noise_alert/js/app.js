@@ -45,11 +45,11 @@
 
       })();
       describe('TopNoises', function() {
-        var beforeEach, topNoises;
+        var topNoises;
         topNoises = {};
-        beforeEach = function() {
+        beforeEach((function() {
           return topNoises = new TopNoises(3);
-        };
+        }));
         return it('should keep 3 highest entries, sorted', function() {
           var entries;
           entries = [
