@@ -52,7 +52,7 @@ app.controller 'noiseController', ['$scope', '$interval', 'Message', ($scope, $i
             topNoises.push entries[1]
             topNoises.push entries[3]
 
-            expect(topNoises.storage.length).toBe(3)
+            expect(topNoises.storage.length).toBe(2)
             expect(topNoises.storage[0]).toEqual(entries[2])
             expect(topNoises.storage[1]).toEqual(entries[3])
             expect(topNoises.storage[2]).toEqual(entries[0])
