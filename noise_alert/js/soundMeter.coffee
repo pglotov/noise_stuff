@@ -1,49 +1,66 @@
 
 app = angular.module 'noiseAlert.app'
-.factory 'SoundMeter', ['$scope', ($scope)->
-    SoundMeter = ($scope, context)->
-        this.context = context;
-        this.instant = 0.0;
+.directive 'soundMeter', [()->
+    restrict: 'E'
+    scope:
+        threshold: '='
+        noiseData: '='
+        controller: ['$scope', ($scope)->
+            noiseData = $scope.noiseData
+            noiseData.instant = 0.0;
+            noiseData.noiseProgress = 0;
+            noiseData.cumulativeVolume = 0;
+            noiseData.topNoises = [];
 
-        this.noiseProgress = 0;
-        this.cumulativeVolume = 0;
 
-        this.topNoises = [];
+            try
+                $window.AudioContext = $window.AudioContext || $window.webkitAudioContext;
+                $scope.context = new AudioContext();
+            catch e
+                alert('Web Audio API not supported.');
 
-        this.script = context.createScriptProcessor(2048, 1, 1);
-        that = this;
+            $scope.script = $scope.context.createScriptProcessor(2048, 1, 1);
 
-        this.script.onaudioprocess = (event)->
-            input = event.inputBuffer.getChannelData(0)
-            sum = 0.0
-            for i in [0..input.length]
-                sum += input[i] * input[i]
-            that.instant = Math.sqrt(sum / input.length)
+            $scope.script.onaudioprocess = (event)->
+                input = event.inputBuffer.getChannelData(0)
+                sum = 0.0
+                for i in [0..input.length]
+                    sum += input[i] * input[i]
+                noiseData.instant = Math.sqrt(sum / input.length)
 
-            if that.instant > $scope.threshold
-                that.noiseProgress += input.length / 2048;
-                that.cumulativeVolume += that.instant * input.length / 2048;
-            else
-                if that.noiseProgress >= 10000
-                    that.topNoises.push_back
-                        cumulativeVolume: that.cumulativeVolume
-                        timestamp: new Date()
-                    that.topNoises.reverse((a,b)-> b.cumulativeVolume - a.cumulativeVolume)
-                    if that.topNoises.length > 3
-                        that.topNoises.pop()
-                that.noiseProgress = 0
-                that.cumulativeVolume = 0
+                if noiseData.instant > $scope.threshold
+                    noiseData.noiseProgress += input.length / 2048;
+                    noiseData.cumulativeVolume += that.instant * input.length / 2048;
+                else
+                    if noiseData.noiseProgress >= 10000
+                        noiseData.topNoises.push_back
+                            cumulativeVolume: noiseData.cumulativeVolume
+                            timestamp: new Date()
+                        noiseData.topNoises.reverse((a,b)-> b.cumulativeVolume - a.cumulativeVolume)
+                        if noiseData.topNoises.length > 3
+                            noiseData.topNoises.pop()
+                    noiseData.noiseProgress = 0
+                    noiseData.cumulativeVolume = 0
 
-    SoundMeter.prototype.connectToSource = (stream)->
-        console.log('SoundMeter connecting');
-        this.mic = this.context.createMediaStreamSource(stream);
-        this.mic.connect(this.script);
-        # necessary to make sample run, but should not be.
-        this.script.connect(this.context.destination);
+            $scope.connectToSource = (stream)->
+                console.log('SoundMeter connecting');
+                $scope.mic = $scope.context.createMediaStreamSource(stream);
+                $scope.mic.connect(this.script);
+                # necessary to make sample run, but should not be.
+                $scope.script.connect($scope.context.destination);
 
-    SoundMeter.prototype.stop = ()->
-        this.mic.disconnect();
-        this.script.disconnect();
+            $scope.stop = ()->
+                $scope.mic.disconnect();
+                $scope.script.disconnect();
 
-    SoundMeter
+            $scope.constraints =
+                audio: true
+                video: false
+
+            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+            navigator.getUserMedia constraints, ((stream)->
+                $scope.connectToSource(stream)),
+                ((error)->console.log('navigator.getUserMedia error: ', error))
+        ]
 ]

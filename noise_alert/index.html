@@ -33,6 +33,8 @@
 
     <p>Trigger noise level alerts using WebAudio, alerts will be sent to {[{ phoneNumber }]}</p>
 
+    <sound-meter threshold="threshold" noise-data="noiseData">
+    </sound-meter>
 
     <div id="meters">
 
@@ -45,24 +47,24 @@
       <div id="threshold">
         <div class="label">Threshold</div>
         <div style="display:inline-block;">
-          <input type="number" ng-model="threshold" min="0" max="1" step="0.01">
+          <input type="number" ng-model="noiseData.threshold" min="0" max="1" step="0.01">
         </div>
       </div>
       <div id="noiseProgress">
         <div class="label">Noise progress: </div>
-        <meter high="10" max="100" value="0"></meter>
-        <div class="value"></div>
+        <meter high="10" max="100" ng-model="noiseData.noiseProgress"></meter>
+        <div class="value">{[{ noiseData.noiseProgress }]}</div>
       </div>
 
       <div id="instant">
         <div class="label">Instant: </div>
-        <meter high="0.25" max="1" value="0"></meter>
-        <div class="value"></div>
+        <meter high="0.25" max="1" ng-model="noiseData.instant"></meter>
+        <div class="value">{[{ noiseData.instant }]}</div>
       </div>
 
       <div id="top-noises">
         <ul>
-          <li ng-repeat="noise in topNoises">
+          <li ng-repeat="noise in noiseData.topNoises">
             {[{ noise.timestamp }]} with cumulative volume {[{ noise.cumulativeVolume }]}
           </li>
         </ul>
