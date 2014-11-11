@@ -37,10 +37,10 @@ function SoundMeter(context) {
     that.slow = 0.95 * that.slow + 0.05 * that.instant;
     that.clip = clipcount / input.length;
 
-    if (this.instant > window.noiseAlert.threshold)
-      ++this.noiseCount;
+    if (that.instant > window.noiseAlert.threshold)
+      ++that.noiseCount;
     else
-      this.noiseCount = 0;
+      that.noiseCount = 0;
   };
 }
 
