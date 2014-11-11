@@ -38,7 +38,7 @@
         },
         controller: [
           '$scope', '$window', function($scope, $window) {
-            var e, i, input, noiseData, sum, _i, _ref;
+            var e, noiseData;
             noiseData = $scope.noiseData;
             noiseData.instant = 0.0;
             noiseData.noiseProgress = 0;
@@ -52,37 +52,40 @@
               alert('Web Audio API not supported.');
             }
             $scope.script = $scope.context.createScriptProcessor(2048, 1, 1);
-            $scope.script.onaudioprocess = function(event) {};
-            input = event.inputBuffer.getChannelData(0);
-            sum = 0.0;
-            for (i = _i = 0, _ref = input.length; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
-              sum += input[i] * input[i];
-            }
-            noiseData.instant = Math.sqrt(sum / input.length);
-            if (noiseData.instant > $scope.threshold) {
-              noiseData.noiseProgress += input.length / 2048;
-              noiseData.cumulativeVolume += that.instant * input.length / 2048;
-            } else {
-              if (noiseData.noiseProgress >= 10000) {
-                noiseData.topNoises.push_back({
-                  cumulativeVolume: noiseData.cumulativeVolume,
-                  timestamp: new Date()
-                });
-                noiseData.topNoises.reverse(function(a, b) {
-                  return b.cumulativeVolume - a.cumulativeVolume;
-                });
-                if (noiseData.topNoises.length > 3) {
-                  noiseData.topNoises.pop();
-                }
-                noiseData.noiseProgress = 0;
-                noiseData.cumulativeVolume = 0;
+            $scope.script.onaudioprocess = function(event) {
+              var i, input, sum, _i, _ref;
+              input = event.inputBuffer.getChannelData(0);
+              sum = 0.0;
+              for (i = _i = 0, _ref = input.length; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
+                sum += input[i] * input[i];
               }
-            }
-            $scope.connectToSource = function(stream) {};
-            console.log('SoundMeter connecting');
-            $scope.mic = $scope.context.createMediaStreamSource(stream);
-            $scope.mic.connect(this.script);
-            $scope.script.connect($scope.context.destination);
+              noiseData.instant = Math.sqrt(sum / input.length);
+              if (noiseData.instant > $scope.threshold) {
+                noiseData.noiseProgress += input.length / 2048;
+                return noiseData.cumulativeVolume += that.instant * input.length / 2048;
+              } else {
+                if (noiseData.noiseProgress >= 10000) {
+                  noiseData.topNoises.push_back({
+                    cumulativeVolume: noiseData.cumulativeVolume,
+                    timestamp: new Date()
+                  });
+                  noiseData.topNoises.reverse(function(a, b) {
+                    return b.cumulativeVolume - a.cumulativeVolume;
+                  });
+                  if (noiseData.topNoises.length > 3) {
+                    noiseData.topNoises.pop();
+                  }
+                  noiseData.noiseProgress = 0;
+                  return noiseData.cumulativeVolume = 0;
+                }
+              }
+            };
+            $scope.connectToSource = function(stream) {
+              console.log('SoundMeter connecting');
+              $scope.mic = $scope.context.createMediaStreamSource(stream);
+              $scope.mic.connect(this.script);
+              return $scope.script.connect($scope.context.destination);
+            };
             $scope.stop = function() {
               $scope.mic.disconnect();
               return $scope.script.disconnect();
