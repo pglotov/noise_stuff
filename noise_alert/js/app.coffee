@@ -6,7 +6,7 @@ app.config ['$interpolateProvider',
         $interpolateProvider.startSymbol('{[{')
         $interpolateProvider.endSymbol('}]}')]
 
-app.controller 'noiseController', ['$scope', ($scope)->
+app.controller 'noiseController', ['$scope', '$window', ($scope, $window)->
     $scope.phoneNumber = '408'
     $window.noiseAlert =
         threshold: 0.2

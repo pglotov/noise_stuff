@@ -13,9 +13,8 @@
 // instantaneous and time-decaying volumes available for inspection.
 // It also reports on the fraction of samples that were at or near
 // the top of the measurement range.
-function SoundMeter(context, threshold) {
+function SoundMeter(context) {
   this.context = context;
-  this.threshold = threshold;
   this.instant = 0.0;
   this.slow = 0.0;
   this.clip = 0.0;
@@ -33,7 +32,7 @@ function SoundMeter(context, threshold) {
         clipcount += 1;
       }
     }
-    if (sum > this.threshold.threshold)
+    if (sum > window.noiseAlert.threshold)
       ++this.noiseCount;
     else
       this.noiseCount = 0;
