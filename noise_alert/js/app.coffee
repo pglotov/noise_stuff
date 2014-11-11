@@ -9,15 +9,15 @@ app.controller 'noiseController', ['$scope', '$interval', 'Message', ($scope, $i
     $scope.phoneNumber = '+14086275378'
 
     class TopNoises
-        constructor: (size)->
-            @size = size
+        constructor: (max_size)->
+            @max_size = max_size
             @storage = []
             @topNoisesChanged = false
 
         push: (newEntry)->
             @storage.push newEntry
             @storage.sort((a,b)-> b.cumulativeVolume - a.cumulativeVolume)
-            if @storage.length > @size
+            if @storage.length > @max_size
                 popedEntry = @storage.pop()
                 if popedEntry != newEntry
                     @topNoisesChanged = true

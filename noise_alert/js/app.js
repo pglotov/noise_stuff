@@ -15,8 +15,8 @@
       var TopNoises, timeoutId;
       $scope.phoneNumber = '+14086275378';
       TopNoises = (function() {
-        function TopNoises(size) {
-          this.size = size;
+        function TopNoises(max_size) {
+          this.max_size = max_size;
           this.storage = [];
           this.topNoisesChanged = false;
         }
@@ -27,7 +27,7 @@
           this.storage.sort(function(a, b) {
             return b.cumulativeVolume - a.cumulativeVolume;
           });
-          if (this.storage.length > this.size) {
+          if (this.storage.length > this.max_size) {
             popedEntry = this.storage.pop();
             if (popedEntry !== newEntry) {
               return this.topNoisesChanged = true;
@@ -106,7 +106,7 @@
                 sum += val * val;
               }
               noiseData.instant = Math.sqrt(sum / input.length);
-              if (noiseData.instant > noiseData.threshold) {
+              if (noiseData.instant >= noiseData.threshold) {
                 noiseData.noiseProgress += input.length / 2048;
                 return noiseData.cumulativeVolume += noiseData.instant * input.length / 2048;
               } else {

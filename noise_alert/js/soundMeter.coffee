@@ -23,7 +23,7 @@ app = angular.module 'noiseAlert.app'
                 sum += val * val
             noiseData.instant = Math.sqrt(sum / input.length)
 
-            if noiseData.instant > noiseData.threshold
+            if noiseData.instant >= noiseData.threshold
                 noiseData.noiseProgress += input.length / 2048
                 noiseData.cumulativeVolume += noiseData.instant * input.length / 2048
             else

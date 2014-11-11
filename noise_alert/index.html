@@ -66,7 +66,7 @@
       <div id="top-noises">
         <div class="label">Top noises: </div>
         <ul>
-          <li ng-repeat="noise in noiseData.topNoises">
+          <li ng-repeat="noise in noiseData.topNoises.storage">
             {[{ noise.cumulativeVolume }]}  cumulative volume on {[{ noise.timestamp | date:'medium'}]}
           </li>
         </ul>
