@@ -29,11 +29,12 @@
             text: "Top noises have changed",
             contacts: [$scope.phoneNumber]
           });
-          return message.$send({
+          message.$send({
             username: 'pglotov',
             api_key: '0f2a9701964627b0317748402e33cffee97e77a7'
           });
         }
+        return $scope.noiseData.topNoiseChanged = false;
       }), 200);
     }
   ]);
