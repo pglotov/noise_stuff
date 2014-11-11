@@ -43,11 +43,11 @@ app.controller 'noiseController', ['$scope', '$interval', 'Message', ($scope, $i
                 timestamp: 'nov 10',
                 ]
                 
-            topNoises.push enties[0]
+            topNoises.push entries[0]
             expect(topNoises.changed).toBe(true)
-            topNoises.push enties[2]
-            topNoises.push enties[1]
-            topNoises.push enties[3]
+            topNoises.push entries[2]
+            topNoises.push entries[1]
+            topNoises.push entries[3]
 
             expect(topNoises.storage.length).toBe(3)
             expect(topNoises.storage[0]).toEqual(entries[2])
