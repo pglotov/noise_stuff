@@ -45,14 +45,21 @@
       <div id="threshold">
         <div class="label">Threshold</div>
         <div style="display:inline-block;">
-          <input type="number" ng-model="$window.noiseAlert.threshold" min="0" max="1" step="0.01">
+          <input type="number" ng-model="$window.soundMeter.threshold" min="0" max="1" step="0.01">
         </div>
       </div>
-      <div id="noiseCount">
-        <div class="label">Noise count: </div>
+      <div id="noiseProgress">
+        <div class="label">Noise progress: </div>
         <meter high="100" max="1000" value="0"></meter>
         <div class="value"></div>
       </div>
+
+      <div id="noiseCount">
+        <div class="label">Noise periods count: </div>
+        <meter high="1" max="3" value="0"></meter>
+        <div class="value"></div>
+      </div>
+
 
       <div id="instant">
         <div class="label">Instant: </div>

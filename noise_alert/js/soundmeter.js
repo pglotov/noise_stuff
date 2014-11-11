@@ -18,9 +18,13 @@ function SoundMeter(context) {
   this.instant = 0.0;
   this.slow = 0.0;
   this.clip = 0.0;
+
+  this.threshold = 0.2;
+  this.noisePrgress = 0;
+
   this.script = context.createScriptProcessor(2048, 1, 1);
   var that = this;
-  this.noiseCount = 0;
+
   this.script.onaudioprocess = function(event) {
     var input = event.inputBuffer.getChannelData(0);
     var i;
@@ -37,10 +41,10 @@ function SoundMeter(context) {
     that.slow = 0.95 * that.slow + 0.05 * that.instant;
     that.clip = clipcount / input.length;
 
-    if (that.instant > window.noiseAlert.threshold)
-      ++that.noiseCount;
+    if (that.instant > that.threshold)
+      ++that.noiseProgress;
     else
-      that.noiseCount = 0;
+      that.noiseProgress = 0;
   };
 }
 

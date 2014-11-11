@@ -13,10 +13,13 @@
 var instantMeter = document.querySelector('#instant meter');
 var slowMeter = document.querySelector('#slow meter');
 var clipMeter = document.querySelector('#clip meter');
+var noiseProgressMeter = document.querySelector("#noiseProgress");
+
 
 var instantValueDisplay = document.querySelector('#instant .value');
 var slowValueDisplay = document.querySelector('#slow .value');
 var clipValueDisplay = document.querySelector('#clip .value');
+var noiseProgressValueDisplay = document.querySelector('#noiseProgress .value');
 
 try {
   window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -47,6 +50,9 @@ function successCallback(stream) {
       soundMeter.slow.toFixed(2);
     clipMeter.value = clipValueDisplay.innerText =
       soundMeter.clip;
+    noiseProgressMeter.value = noiseProgressValueDisplay.innerText =
+      sountMeter.noiseProgress;
+
   }, 200);
 }
 
