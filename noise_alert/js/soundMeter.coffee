@@ -12,7 +12,6 @@ app = angular.module 'noiseAlert.app'
         noiseData.cumulativeVolume = 0;
         noiseData.topNoises = [];
 
-
         try
             $window.AudioContext = $window.AudioContext || $window.webkitAudioContext;
             $scope.context = new AudioContext();
@@ -29,8 +28,8 @@ app = angular.module 'noiseAlert.app'
             noiseData.instant = Math.sqrt(sum / input.length)
 
             if noiseData.instant > noiseData.threshold
-                noiseData.noiseProgress += input.length / 2048;
-                noiseData.cumulativeVolume += noiseData.instant * input.length / 2048;
+                noiseData.noiseProgress += input.length / 2048
+                noiseData.cumulativeVolume += noiseData.instant * input.length / 2048
             else
                 if noiseData.noiseProgress >= 20
                     newEntry =

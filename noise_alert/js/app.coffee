@@ -17,7 +17,6 @@ app.controller 'noiseController', ['$scope', '$interval', 'Message', ($scope, $i
         topNoisesChanged: false
     
     timeoutId = $interval (()->
-        #$scope.$apply()
         if $scope.noiseData.topNoisesChanged
             message = new Message
                 text: "Top noises have changed"
