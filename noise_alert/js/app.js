@@ -52,18 +52,23 @@
         }));
         return it('should keep 3 highest entries, sorted', function() {
           var entries;
-          entries = [
-            {
-              cumulativeVolume: 10,
-              timestamp: 'nov 10',
-              cumulativeVolume: 7,
-              timestamp: 'nov 10',
-              cumulativeVolume: 40,
-              timestamp: 'nov 10',
-              cumulativeVolume: 21,
-              timestamp: 'nov 10'
-            }
-          ];
+          entries = [];
+          entries.push({
+            cumulativeVolume: 10,
+            timestamp: 'nov 10'
+          });
+          entries.push({
+            cumulativeVolume: 7,
+            timestamp: 'nov 10'
+          });
+          entries.push({
+            cumulativeVolume: 40,
+            timestamp: 'nov 10'
+          });
+          entries.push({
+            cumulativeVolume: 21,
+            timestamp: 'nov 10'
+          });
           topNoises.push(entries[0]);
           expect(topNoises.changed).toBe(true);
           topNoises.push(entries[2]);
