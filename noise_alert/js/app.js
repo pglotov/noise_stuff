@@ -11,7 +11,7 @@
   ]);
 
   app.controller('noiseController', [
-    '$scope', '$interval', function($scope, $interval) {
+    '$scope', '$interval', 'Message', function($scope, $interval, Message) {
       var timeoutId;
       $scope.phoneNumber = '408';
       $scope.noiseData = {
@@ -19,9 +19,23 @@
         noiseProgress: 0,
         cumulativeVolume: 0,
         topNoises: [],
-        threshold: 0.2
+        threshold: 0.2,
+        topNoisesChanged: false
       };
-      return timeoutId = $interval($scope.apply, 200);
+      return timeoutId = $interval((function() {
+        var message;
+        $scope.apply();
+        if ($scope.noiseData.topNoisesChanged) {
+          message = new Message({
+            text: "Top noises have changed",
+            contacts: [$scope.phoneNumber]
+          });
+          return message.send({
+            username: 'pglotov',
+            api_key: '0f2a9701964627b0317748402e33cffee97e77a7'
+          });
+        }
+      }), 200);
     }
   ]);
 
@@ -55,7 +69,7 @@
             }
             $scope.script = $scope.context.createScriptProcessor(2048, 1, 1);
             $scope.script.onaudioprocess = function(event) {
-              var input, sum, val, _i, _len;
+              var input, newEntry, popedEntry, sum, val, _i, _len;
               input = event.inputBuffer.getChannelData(0);
               sum = 0.0;
               for (_i = 0, _len = input.length; _i < _len; _i++) {
@@ -68,15 +82,21 @@
                 return noiseData.cumulativeVolume += noiseData.instant * input.length / 2048;
               } else {
                 if (noiseData.noiseProgress >= 20) {
-                  noiseData.topNoises.push({
+                  newEntry = {
                     cumulativeVolume: noiseData.cumulativeVolume,
                     timestamp: new Date()
-                  });
+                  };
+                  noiseData.topNoises.push(newEntry);
                   noiseData.topNoises.sort(function(a, b) {
                     return b.cumulativeVolume - a.cumulativeVolume;
                   });
                   if (noiseData.topNoises.length > 3) {
-                    noiseData.topNoises.pop();
+                    popedEntry = noiseData.topNoises.pop();
+                    if (popedEntry !== newEntry) {
+                      noiseData.topNoisesChanged = true;
+                    }
+                  } else {
+                    noiseData.topNoisesChanged = true;
                   }
                 }
                 noiseData.noiseProgress = 0;
