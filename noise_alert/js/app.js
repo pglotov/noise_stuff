@@ -34,7 +34,7 @@
             api_key: '0f2a9701964627b0317748402e33cffee97e77a7'
           });
         }
-        return $scope.noiseData.topNoiseChanged = false;
+        return $scope.noiseData.topNoisesChanged = false;
       }), 200);
     }
   ]);
