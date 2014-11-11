@@ -40,7 +40,7 @@ navigator.getUserMedia = navigator.getUserMedia ||
 function successCallback(stream) {
   // Put variables in global scope to make them available to the browser console.
   window.stream = stream;
-  var soundMeter = window.soundMeter = new SoundMeter(window.audioContext, threshold);
+  var soundMeter = window.soundMeter = new SoundMeter(window.audioContext);
   soundMeter.connectToSource(stream);
 
   setInterval(function() {
