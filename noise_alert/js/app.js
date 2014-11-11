@@ -24,7 +24,7 @@
       };
       return timeoutId = $interval((function() {
         var message;
-        $scope.apply();
+        $scope.$apply();
         if ($scope.noiseData.topNoisesChanged) {
           message = new Message({
             text: "Top noises have changed",
