@@ -23,7 +23,7 @@ app.controller 'noiseController', ['$scope', '$interval', 'Message', ($scope, $i
                 text: "Top noises have changed"
                 contacts: [$scope.phoneNumber]
             message.$send
-                username: 'pglotov'
+                username: '4086275378'
                 api_key: '0f2a9701964627b0317748402e33cffee97e77a7'
         $scope.noiseData.topNoisesChanged = false
         ),

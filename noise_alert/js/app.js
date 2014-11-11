@@ -30,7 +30,7 @@
             contacts: [$scope.phoneNumber]
           });
           message.$send({
-            username: 'pglotov',
+            username: '4086275378',
             api_key: '0f2a9701964627b0317748402e33cffee97e77a7'
           });
         }
