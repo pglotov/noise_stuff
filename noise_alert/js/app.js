@@ -21,7 +21,7 @@
         topNoises: [],
         threshold: 0.2
       };
-      return timeoutId = $interval($scope.apply, 200);
+      return timeoutId = $interval($scope.apply, 2000);
     }
   ]);
 
