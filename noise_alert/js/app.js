@@ -72,8 +72,8 @@
                     cumulativeVolume: noiseData.cumulativeVolume,
                     timestamp: new Date()
                   });
-                  noiseData.topNoises.reverse(function(a, b) {
-                    return b.cumulativeVolume - a.cumulativeVolume;
+                  noiseData.topNoises.sort(function(a, b) {
+                    return a.cumulativeVolume - b.cumulativeVolume;
                   });
                   if (noiseData.topNoises.length > 3) {
                     noiseData.topNoises.pop();
