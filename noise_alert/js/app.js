@@ -18,7 +18,7 @@
         function TopNoises(max_size) {
           this.max_size = max_size;
           this.storage = [];
-          this.topNoisesChanged = false;
+          this.changed = false;
         }
 
         TopNoises.prototype.push = function(newEntry) {
@@ -30,15 +30,15 @@
           if (this.storage.length > this.max_size) {
             popedEntry = this.storage.pop();
             if (popedEntry !== newEntry) {
-              return this.topNoisesChanged = true;
+              return this.changed = true;
             }
           } else {
-            return this.topNoisesChanged = true;
+            return this.changed = true;
           }
         };
 
         TopNoises.prototype.clear = function() {
-          return this.topNoisesChaged = false;
+          return this.changed = false;
         };
 
         return TopNoises;
@@ -53,7 +53,7 @@
       };
       return timeoutId = $interval((function() {
         var message;
-        if ($scope.noiseData.topNoisesChanged) {
+        if ($scope.noiseData.topNoises.changed) {
           message = new Message({
             text: "Top noises have changed",
             contacts: [$scope.phoneNumber]

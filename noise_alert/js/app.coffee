@@ -12,7 +12,7 @@ app.controller 'noiseController', ['$scope', '$interval', 'Message', ($scope, $i
         constructor: (max_size)->
             @max_size = max_size
             @storage = []
-            @topNoisesChanged = false
+            @changed = false
 
         push: (newEntry)->
             @storage.push newEntry
@@ -20,11 +20,11 @@ app.controller 'noiseController', ['$scope', '$interval', 'Message', ($scope, $i
             if @storage.length > @max_size
                 popedEntry = @storage.pop()
                 if popedEntry != newEntry
-                    @topNoisesChanged = true
+                    @changed = true
             else
-                @topNoisesChanged = true                        
+                @changed = true                        
         clear: ()->
-            @topNoisesChaged = false
+            @changed = false
 
 
     $scope.noiseData =
@@ -35,7 +35,7 @@ app.controller 'noiseController', ['$scope', '$interval', 'Message', ($scope, $i
         topNoises: new TopNoises(3)    
 
     timeoutId = $interval (()->
-        if $scope.noiseData.topNoisesChanged
+        if $scope.noiseData.topNoises.changed
             message = new Message
                 text: "Top noises have changed"
                 contacts: [$scope.phoneNumber]
