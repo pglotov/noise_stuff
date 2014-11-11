@@ -32,14 +32,15 @@ function SoundMeter(context) {
         clipcount += 1;
       }
     }
-    if (sum > window.noiseAlert.threshold)
-      ++this.noiseCount;
-    else
-      this.noiseCount = 0;
 
     that.instant = Math.sqrt(sum / input.length);
     that.slow = 0.95 * that.slow + 0.05 * that.instant;
     that.clip = clipcount / input.length;
+
+    if (this.instant > window.noiseAlert.threshold)
+      ++this.noiseCount;
+    else
+      this.noiseCount = 0;
   };
 }
 
