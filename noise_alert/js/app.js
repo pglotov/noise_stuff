@@ -78,9 +78,9 @@
                   if (noiseData.topNoises.length > 3) {
                     noiseData.topNoises.pop();
                   }
-                  noiseData.noiseProgress = 0;
-                  return noiseData.cumulativeVolume = 0;
                 }
+                noiseData.noiseProgress = 0;
+                return noiseData.cumulativeVolume = 0;
               }
             };
             $scope.connectToSource = function(stream) {

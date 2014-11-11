@@ -39,8 +39,8 @@ app = angular.module 'noiseAlert.app'
                     noiseData.topNoises.reverse((a,b)-> b.cumulativeVolume - a.cumulativeVolume)
                     if noiseData.topNoises.length > 3
                         noiseData.topNoises.pop()
-                    noiseData.noiseProgress = 0
-                    noiseData.cumulativeVolume = 0
+                noiseData.noiseProgress = 0
+                noiseData.cumulativeVolume = 0
 
         $scope.connectToSource = (stream)->
             console.log('SoundMeter connecting');
