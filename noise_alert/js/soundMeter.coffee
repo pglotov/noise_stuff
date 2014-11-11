@@ -30,7 +30,7 @@ app = angular.module 'noiseAlert.app'
 
             if noiseData.instant > $scope.threshold
                 noiseData.noiseProgress += input.length / 2048;
-                noiseData.cumulativeVolume += that.instant * input.length / 2048;
+                noiseData.cumulativeVolume += noiseData.instant * input.length / 2048;
             else
                 if noiseData.noiseProgress >= 10000
                     noiseData.topNoises.push_back
