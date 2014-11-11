@@ -1,4 +1,4 @@
-app = angular.module 'noiseAlert.app', []
+app = angular.module 'noiseAlert.app', ['soundMeter']
 
 app.config ['$interpolateProvider',
     ($interpolateProvider)->
