@@ -1,0 +1,1 @@
+coffee -c js/app.coffee
