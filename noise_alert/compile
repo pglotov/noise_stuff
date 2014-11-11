@@ -1,2 +1,1 @@
-coffee -c js/app.coffee
-coffee -c js/soundMeter.coffee
+coffee -c js/app.coffee js/soundMeter.coffee
