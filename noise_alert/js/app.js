@@ -53,11 +53,12 @@
             }
             $scope.script = $scope.context.createScriptProcessor(2048, 1, 1);
             $scope.script.onaudioprocess = function(event) {
-              var i, input, sum, _i, _ref;
+              var input, sum, val, _i, _len;
               input = event.inputBuffer.getChannelData(0);
               sum = 0.0;
-              for (i = _i = 0, _ref = input.length; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
-                sum += input[i] * input[i];
+              for (_i = 0, _len = input.length; _i < _len; _i++) {
+                val = input[_i];
+                sum += val * val;
               }
               noiseData.instant = Math.sqrt(sum / input.length);
               if (noiseData.instant > $scope.threshold) {
@@ -83,7 +84,7 @@
             $scope.connectToSource = function(stream) {
               console.log('SoundMeter connecting');
               $scope.mic = $scope.context.createMediaStreamSource(stream);
-              $scope.mic.connect(this.script);
+              $scope.mic.connect($scope.script);
               return $scope.script.connect($scope.context.destination);
             };
             $scope.stop = function() {

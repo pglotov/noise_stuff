@@ -24,8 +24,8 @@ app = angular.module 'noiseAlert.app'
         $scope.script.onaudioprocess = (event)->
             input = event.inputBuffer.getChannelData(0)
             sum = 0.0
-            for i in [0..input.length]
-                sum += input[i] * input[i]
+            for val in input
+                sum += val * val
             noiseData.instant = Math.sqrt(sum / input.length)
 
             if noiseData.instant > $scope.threshold
@@ -45,7 +45,7 @@ app = angular.module 'noiseAlert.app'
         $scope.connectToSource = (stream)->
             console.log('SoundMeter connecting');
             $scope.mic = $scope.context.createMediaStreamSource(stream);
-            $scope.mic.connect(this.script);
+            $scope.mic.connect($scope.script);
             # necessary to make sample run, but should not be.
             $scope.script.connect($scope.context.destination);
 
