@@ -1,13 +1,6 @@
 
 app = angular.module 'noiseAlert.app'
-.factory 'NoiseDescriptor', [()->
-    NoiseDescriptor = (cumulativeVolume, timestamp)->
-        this.cumulativeVolume = cumulativeVolume
-        this.timestamp = timestamp
-
-    NoiseDescriptor
-]
-.factory 'SoundMeter', ['NoiseDescriptor', (NoiseDescriptor)->
+.factory 'SoundMeter', [()->
     SoundMeter = (context)->
         this.context = context;
         this.instant = 0.0;
@@ -32,7 +25,9 @@ app = angular.module 'noiseAlert.app'
                 that.cumulativeVolume += that.instant * input.length / 2048;
             else
                 if that.noiseProgress >= 10000
-                    that.topNoises.push_back(new NoiseDescriptor(that.cumulativeVolume, new Date()))
+                    that.topNoises.push_back
+                        cumulativeVolume: that.cumulativeVolume
+                        timestamp: new Date()
                     that.topNoises.reverse((a,b)-> b.cumulativeVolume - a.cumulativeVolume)
                     if that.topNoises.length > 3
                         that.topNoises.pop()

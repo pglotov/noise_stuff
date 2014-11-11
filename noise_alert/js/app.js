@@ -49,13 +49,8 @@
 (function() {
   var app;
 
-  app = angular.module('noiseAlert.app').factory('NoiseDescriptor', [
-    function(cumulativeVolume, timestamp) {
-      this.cumulativeVolume = cumulativeVolume;
-      return this.timestamp = timestamp;
-    }
-  ]).factory('SoundMeter', [
-    'NoiseDescriptor', function(NoiseDescriptor) {
+  app = angular.module('noiseAlert.app').factory('SoundMeter', [
+    function() {
       var SoundMeter;
       SoundMeter = function(context) {
         var that;
@@ -79,7 +74,10 @@
             return that.cumulativeVolume += that.instant * input.length / 2048;
           } else {
             if (that.noiseProgress >= 10000) {
-              that.topNoises.push_back(new NoiseDescriptor(that.cumulativeVolume, new Date()));
+              that.topNoises.push_back({
+                cumulativeVolume: that.cumulativeVolume,
+                timestamp: new Date()
+              });
               that.topNoises.reverse(function(a, b) {
                 return b.cumulativeVolume - a.cumulativeVolume;
               });
