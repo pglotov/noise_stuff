@@ -1,7 +1,7 @@
 
 app = angular.module 'noiseAlert.app'
-.factory 'SoundMeter', [()->
-    SoundMeter = (context)->
+.factory 'SoundMeter', ['$scope', ($scope)->
+    SoundMeter = ($scope, context)->
         this.context = context;
         this.instant = 0.0;
 
@@ -20,7 +20,7 @@ app = angular.module 'noiseAlert.app'
                 sum += input[i] * input[i]
             that.instant = Math.sqrt(sum / input.length)
 
-            if that.instant > that.threshold
+            if that.instant > $scope.threshold
                 that.noiseProgress += input.length / 2048;
                 that.cumulativeVolume += that.instant * input.length / 2048;
             else
