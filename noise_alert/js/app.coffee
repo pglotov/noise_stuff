@@ -28,13 +28,11 @@ app.controller 'noiseController', ['$scope', '$window', 'SoundMeter', ($scope, $
             $scope.topNoises = soundMeter.topNoises
         , 200);
 
-errorCallback = (error)->
-  console.log('navigator.getUserMedia error: ', error);
+    errorCallback = (error)->
+        console.log('navigator.getUserMedia error: ', error);
 
+    navigator.getUserMedia(constraints, successCallback, errorCallback);
 
-navigator.getUserMedia(constraints, successCallback, errorCallback);
-
-$scope.phoneNumber = '408'
-$scope.threshold = 0.2
-
+    $scope.phoneNumber = '408'
+    $scope.threshold = 0.2
 ]
