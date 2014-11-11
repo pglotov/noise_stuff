@@ -63,7 +63,7 @@
                 sum += val * val;
               }
               noiseData.instant = Math.sqrt(sum / input.length);
-              if (noiseData.instant > noiseThreshold.threshold) {
+              if (noiseData.instant > noiseData.threshold) {
                 noiseData.noiseProgress += input.length / 2048;
                 return noiseData.cumulativeVolume += noiseData.instant * input.length / 2048;
               } else {
