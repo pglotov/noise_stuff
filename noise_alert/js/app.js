@@ -11,15 +11,17 @@
   ]);
 
   app.controller('noiseController', [
-    '$scope', function($scope) {
+    '$scope', '$interval', function($scope, $interval) {
+      var timeoutId;
       $scope.phoneNumber = '408';
       $scope.threshold = 0.2;
-      return $scope.noiseData = {
+      $scope.noiseData = {
         instant: 0,
         noiseProgress: 0,
         cumulativeVolume: 0,
         topNoises: []
       };
+      return timeoutId = $interval($scope.apply, 200);
     }
   ]);
 
