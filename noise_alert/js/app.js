@@ -115,10 +115,10 @@
                     cumulativeVolume: noiseData.cumulativeVolume,
                     timestamp: new Date()
                   };
+                  noiseData.topNoises.push(newEntry);
+                  noiseData.noiseProgress = 0;
+                  return noiseData.cumulativeVolume = 0;
                 }
-                noiseData.topNoises.push(newEntry);
-                noiseData.noiseProgress = 0;
-                return noiseData.cumulativeVolume = 0;
               }
             };
             $scope.connectToSource = function(stream) {
