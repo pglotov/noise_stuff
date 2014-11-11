@@ -10,5 +10,5 @@ app.controller 'noiseController', ['$scope', '$window', ($scope, $window)->
     $scope.phoneNumber = '408'
     $window.noiseAlert =
         threshold: 0.2
-
+    $scope.window = $window
 ]
