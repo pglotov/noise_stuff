@@ -13,7 +13,7 @@
   app.controller('noiseController', [
     '$scope', '$interval', 'Message', function($scope, $interval, Message) {
       var TopNoises, timeoutId;
-      $scope.phoneNumber = '+14086275378';
+      $scope.phoneNumber = '+1';
       TopNoises = (function() {
         function TopNoises(max_size) {
           this.max_size = max_size;
