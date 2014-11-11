@@ -12,14 +12,16 @@
 
   app.controller('noiseController', [
     '$scope', '$interval', function($scope, $interval) {
+      var timeoutId;
       $scope.phoneNumber = '408';
-      return $scope.noiseData = {
+      $scope.noiseData = {
         instant: 0,
         noiseProgress: 0,
         cumulativeVolume: 0,
         topNoises: [],
         threshold: 0.2
       };
+      return timeoutId = $interval($scope.apply, 200);
     }
   ]);
 

@@ -15,4 +15,5 @@ app.controller 'noiseController', ['$scope', '$interval', ($scope, $interval)->
         topNoises: []
         threshold: 0.2
     
+    timeoutId = $interval $scope.apply, 200
 ]
