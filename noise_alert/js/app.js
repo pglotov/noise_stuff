@@ -29,7 +29,7 @@
             text: "Top noises have changed",
             contacts: [$scope.phoneNumber]
           });
-          return message.sendSms({
+          return message.$send({
             username: 'pglotov',
             api_key: '0f2a9701964627b0317748402e33cffee97e77a7'
           });
@@ -136,7 +136,7 @@
   app = angular.module('message.resource', ['ngResource']).factory('Message', [
     '$resource', function($resource) {
       return $resource('https://api.sendhub.com/v1/messages/', null, {
-        sendSms: {
+        send: {
           method: 'POST'
         }
       });
