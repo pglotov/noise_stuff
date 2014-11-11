@@ -31,10 +31,10 @@ app = angular.module 'noiseAlert.app'
                     newEntry =
                         cumulativeVolume: noiseData.cumulativeVolume
                         timestamp: new Date()
-
                     noiseData.topNoises.push newEntry
-                    noiseData.progress = 0
-                    noiseData.cumulativeVolume = 0
+
+                noiseData.progress = 0
+                noiseData.cumulativeVolume = 0
 
         $scope.connectToSource = (stream)->
             console.log('SoundMeter connecting');

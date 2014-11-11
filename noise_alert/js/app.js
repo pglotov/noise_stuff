@@ -118,9 +118,9 @@
                     timestamp: new Date()
                   };
                   noiseData.topNoises.push(newEntry);
-                  noiseData.progress = 0;
-                  return noiseData.cumulativeVolume = 0;
                 }
+                noiseData.progress = 0;
+                return noiseData.cumulativeVolume = 0;
               }
             };
             $scope.connectToSource = function(stream) {
