@@ -45,9 +45,9 @@
 
       })();
       describe('TopNoises', function() {
-        var beforeEach;
+        var beforeEach, topNoises;
+        topNoises = {};
         beforeEach = function() {
-          var topNoises;
           return topNoises = new TopNoises(3);
         };
         return it('should keep 3 highest entries, sorted', function() {

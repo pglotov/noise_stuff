@@ -27,6 +27,7 @@ app.controller 'noiseController', ['$scope', '$interval', 'Message', ($scope, $i
             @changed = false
 
     describe 'TopNoises', ()->
+        topNoises = {}
         beforeEach = ()->
             topNoises = new TopNoises(3)
 
