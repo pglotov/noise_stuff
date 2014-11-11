@@ -29,3 +29,6 @@ app.controller 'noiseController', ['$scope', '$interval', 'Message', ($scope, $i
         ),
         200
 ]
+.config ['$resourceProvider', ($resourceProvider)->
+  $resourceProvider.defaults.stripTrailingSlashes = false;
+]

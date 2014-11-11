@@ -37,6 +37,10 @@
         return $scope.noiseData.topNoisesChanged = false;
       }), 200);
     }
+  ]).config([
+    '$resourceProvider', function($resourceProvider) {
+      return $resourceProvider.defaults.stripTrailingSlashes = false;
+    }
   ]);
 
 }).call(this);
