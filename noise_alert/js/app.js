@@ -53,8 +53,8 @@
       };
       return timeoutId = $interval((function() {
         var instant, message, noiseProgress;
-        noiseProgress = noiseData.progress;
-        instant = noiseData.instant;
+        noiseProgress = $scope.noiseData.progress;
+        instant = $scope.noiseData.instant;
         if ($scope.noiseData.topNoises.changed) {
           message = new Message({
             text: "Top noises have changed",
