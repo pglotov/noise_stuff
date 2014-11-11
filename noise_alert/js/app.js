@@ -12,15 +12,44 @@
 
   app.controller('noiseController', [
     '$scope', '$interval', 'Message', function($scope, $interval, Message) {
-      var timeoutId;
+      var TopNoises, timeoutId;
       $scope.phoneNumber = '+14086275378';
+      TopNoises = (function() {
+        function TopNoises(size) {
+          this.size = size;
+          this.storage = [];
+          this.topNoisesChanged = false;
+        }
+
+        TopNoises.prototype.push = function(newEntry) {
+          var popedEntry;
+          this.storage.push(newEntry);
+          this.storage.sort(function(a, b) {
+            return b.cumulativeVolume - a.cumulativeVolume;
+          });
+          if (this.storage.length > this.size) {
+            popedEntry = this.storage.pop();
+            if (popedEntry !== newEntry) {
+              return this.topNoisesChanged = true;
+            }
+          } else {
+            return this.topNoisesChanged = true;
+          }
+        };
+
+        TopNoises.prototype.clear = function() {
+          return this.topNoisesChaged = false;
+        };
+
+        return TopNoises;
+
+      })();
       $scope.noiseData = {
         instant: 0,
         noiseProgress: 0,
         cumulativeVolume: 0,
-        topNoises: [],
         threshold: 0.2,
-        topNoisesChanged: false
+        topNoises: new TopNoises(3)
       };
       return timeoutId = $interval((function() {
         var message;
@@ -33,8 +62,8 @@
             username: '4086275378',
             api_key: '0f2a9701964627b0317748402e33cffee97e77a7'
           });
+          return $scope.noiseData.clear();
         }
-        return $scope.noiseData.topNoisesChanged = false;
       }), 200);
     }
   ]).config([
@@ -60,10 +89,6 @@
           '$scope', '$window', function($scope, $window) {
             var e, noiseData;
             noiseData = $scope.noiseData;
-            noiseData.instant = 0.0;
-            noiseData.noiseProgress = 0;
-            noiseData.cumulativeVolume = 0;
-            noiseData.topNoises = [];
             try {
               $window.AudioContext = $window.AudioContext || $window.webkitAudioContext;
               $scope.context = new AudioContext();
@@ -73,7 +98,7 @@
             }
             $scope.script = $scope.context.createScriptProcessor(2048, 1, 1);
             $scope.script.onaudioprocess = function(event) {
-              var input, newEntry, popedEntry, sum, val, _i, _len;
+              var input, newEntry, sum, val, _i, _len;
               input = event.inputBuffer.getChannelData(0);
               sum = 0.0;
               for (_i = 0, _len = input.length; _i < _len; _i++) {
@@ -90,19 +115,8 @@
                     cumulativeVolume: noiseData.cumulativeVolume,
                     timestamp: new Date()
                   };
-                  noiseData.topNoises.push(newEntry);
-                  noiseData.topNoises.sort(function(a, b) {
-                    return b.cumulativeVolume - a.cumulativeVolume;
-                  });
-                  if (noiseData.topNoises.length > 3) {
-                    popedEntry = noiseData.topNoises.pop();
-                    if (popedEntry !== newEntry) {
-                      noiseData.topNoisesChanged = true;
-                    }
-                  } else {
-                    noiseData.topNoisesChanged = true;
-                  }
                 }
+                noiseData.topNoises.push(newEntry);
                 noiseData.noiseProgress = 0;
                 return noiseData.cumulativeVolume = 0;
               }

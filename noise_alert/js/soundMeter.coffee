@@ -7,10 +7,6 @@ app = angular.module 'noiseAlert.app'
         noiseData: '='
     controller: ['$scope', '$window', ($scope, $window)->
         noiseData = $scope.noiseData
-        noiseData.instant = 0.0;
-        noiseData.noiseProgress = 0;
-        noiseData.cumulativeVolume = 0;
-        noiseData.topNoises = [];
 
         try
             $window.AudioContext = $window.AudioContext || $window.webkitAudioContext;
@@ -36,15 +32,7 @@ app = angular.module 'noiseAlert.app'
                         cumulativeVolume: noiseData.cumulativeVolume
                         timestamp: new Date()
 
-                    noiseData.topNoises.push newEntry
-                    noiseData.topNoises.sort((a,b)-> b.cumulativeVolume - a.cumulativeVolume)
-                    if noiseData.topNoises.length > 3
-                        popedEntry = noiseData.topNoises.pop()
-                        if popedEntry != newEntry
-                            noiseData.topNoisesChanged = true
-                    else
-                        noiseData.topNoisesChanged = true                        
-
+                noiseData.topNoises.push newEntry
                 noiseData.noiseProgress = 0
                 noiseData.cumulativeVolume = 0
 
