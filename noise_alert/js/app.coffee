@@ -1,4 +1,4 @@
-app = angular.module 'noiseAlert.app', []
+app = angular.module 'noiseAlert.app', ['message.resource']
 
 app.config ['$interpolateProvider',
     ($interpolateProvider)->

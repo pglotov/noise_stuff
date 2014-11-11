@@ -1,7 +1,7 @@
 (function() {
   var app;
 
-  app = angular.module('noiseAlert.app', []);
+  app = angular.module('noiseAlert.app', ['message.resource']);
 
   app.config([
     '$interpolateProvider', function($interpolateProvider) {
@@ -134,7 +134,7 @@
 (function() {
   var app;
 
-  app = angular.module('noiseAlert.app', ['ngResource']).factory('Message', [
+  app = angular.module('message.resource', ['ngResource']).factory('Message', [
     '$resource', function($resource) {
       return $resource('https://api.sendhub.com/v1/messages/', null, {
         send: {
