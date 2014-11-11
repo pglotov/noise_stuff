@@ -5,7 +5,7 @@ app.config ['$interpolateProvider',
         $interpolateProvider.startSymbol('{[{')
         $interpolateProvider.endSymbol('}]}')]
 
-app.controller 'noiseController', ['$scope', ($scope)->
+app.controller 'noiseController', ['$scope', '$interval', ($scope, $interval)->
     $scope.phoneNumber = '408'
     $scope.threshold = 0.2
 
@@ -14,4 +14,7 @@ app.controller 'noiseController', ['$scope', ($scope)->
         noiseProgress: 0
         cumulativeVolume: 0
         topNoises: []
+
+    
+    timeoutId = $interval $scope.apply, 200
 ]
