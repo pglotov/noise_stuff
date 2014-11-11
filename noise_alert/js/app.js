@@ -1,7 +1,7 @@
 (function() {
   var app;
 
-  app = angular.module('noiseAlert.app', ['soundMeter']);
+  app = angular.module('noiseAlert.app', []);
 
   app.config([
     '$interpolateProvider', function($interpolateProvider) {
@@ -49,7 +49,7 @@
 (function() {
   var app;
 
-  app = angular.module('soundMeter').factory('NoiseDescriptor', [
+  app = angular.module('noiseAlert.app').factory('NoiseDescriptor', [
     function(cumulativeVolume, timestamp) {
       this.cumulativeVolume = cumulativeVolume;
       return this.timestamp = timestamp;
