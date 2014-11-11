@@ -68,7 +68,7 @@
                 return noiseData.cumulativeVolume += noiseData.instant * input.length / 2048;
               } else {
                 if (noiseData.noiseProgress >= 50) {
-                  noiseData.topNoises.push_back({
+                  noiseData.topNoises.push({
                     cumulativeVolume: noiseData.cumulativeVolume,
                     timestamp: new Date()
                   });
