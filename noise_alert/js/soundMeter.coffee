@@ -3,7 +3,6 @@ app = angular.module 'noiseAlert.app'
 .directive 'soundMeter', [()->
     restrict: 'E'
     scope:
-        threshold: '='
         noiseData: '='
     controller: ['$scope', '$window', ($scope, $window)->
         noiseData = $scope.noiseData

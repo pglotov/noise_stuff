@@ -120,7 +120,6 @@
       return {
         restrict: 'E',
         scope: {
-          threshold: '=',
           noiseData: '='
         },
         controller: [
