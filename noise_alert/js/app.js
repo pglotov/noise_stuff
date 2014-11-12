@@ -44,42 +44,6 @@
         return TopNoises;
 
       })();
-      describe('TopNoises', function() {
-        var topNoises;
-        topNoises = {};
-        beforeEach((function() {
-          return topNoises = new TopNoises(3);
-        }));
-        return it('should keep 3 highest entries, sorted', function() {
-          var entries;
-          entries = [];
-          entries.push({
-            cumulativeVolume: 10,
-            timestamp: 'nov 10'
-          });
-          entries.push({
-            cumulativeVolume: 7,
-            timestamp: 'nov 10'
-          });
-          entries.push({
-            cumulativeVolume: 40,
-            timestamp: 'nov 10'
-          });
-          entries.push({
-            cumulativeVolume: 21,
-            timestamp: 'nov 10'
-          });
-          topNoises.push(entries[0]);
-          expect(topNoises.changed).toBe(true);
-          topNoises.push(entries[2]);
-          topNoises.push(entries[1]);
-          topNoises.push(entries[3]);
-          expect(topNoises.storage.length).toBe(3);
-          expect(topNoises.storage[0]).toEqual(entries[2]);
-          expect(topNoises.storage[1]).toEqual(entries[3]);
-          return expect(topNoises.storage[2]).toEqual(entries[0]);
-        });
-      });
       $scope.noiseData = {
         instant: 0,
         progress: 0,
